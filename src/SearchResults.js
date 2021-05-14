@@ -2,11 +2,11 @@ import Moment from "moment";
 import React, { useState } from "react";
 
 const SearchResults = ({ results }) => {
-  const [select, setselect] = useState(null);
-  console.log(" selec is : " + select);
+  const [select, setSelect] = useState({});
 
-  //onClick={clickChangeColor} className= {select ? "table-success" : ""}
-
+  function clickChangeColor(id) {
+    setSelect({ ...select, [id]: !select[id] });
+  }
   return (
     <table class="table table-bordered table-ligth">
       <thead>
@@ -26,13 +26,8 @@ const SearchResults = ({ results }) => {
             <tr
               key={element.id}
               className={`tr-${element.id}`}
-              onClick={event => {
-                console.log(typeof event.target.innerText);
-
-                select ? setselect(null) : setselect(event.target.innerText);
-                console.log(select);
-              }}
-              style={{ backgroundColor: element.id === select ? "red" : null }}
+              onClick={() => clickChangeColor(element.id)}
+              className={select[element.id] ? "table-success" : ""}
             >
               <th scope="row">{element.id}</th>
               <td>{element.title}</td>
